@@ -33,4 +33,25 @@ router.get('/category/:category', function(req, res, next) {
   });
 });
 
+/* GET article by ID. */
+router.post('/', function(req, res, next) {
+  // Get the form vals
+  var title = req.body.title;
+  var category = req.body.category;
+  var body = req.body.body;
+  // Article  
+  var newArticle = new Article({
+	title: title,
+	category: category,
+	body: body
+  });
+  Article.createArticle(newArticle, function(err, article){
+	if(err){
+		console.log(err);
+	}
+	res.location('/articles');
+	res.redirect('/articles');
+  });
+});
+
 module.exports = router;

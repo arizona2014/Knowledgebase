@@ -16,7 +16,7 @@ var articleSchema = mongoose.Schema({
 		required: true
 	},
 	date: {
-		type: date,
+		type: Date,
 		default: Date.now
 	}	
 });
@@ -30,5 +30,11 @@ module.exports.getArticles = function(callback){
 
 // Get Article By ID
 module.exports.getArticleById = function(id, callback){
-	Article.find(callback);
+	Article.findById(id, callback);
+}
+
+// Get Category Articles
+module.exports.getArticleByCategory = function(category, callback){
+	var query = { category: category };
+	Article.find(query,callback);
 }

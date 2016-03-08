@@ -54,4 +54,38 @@ router.post('/', function(req, res, next) {
   });
 });
 
+
+/* Update Article  */
+router.put('/', function(req, res, next) {
+  // Get the article id
+  var id = req.body.id;
+   
+  var data = {
+	title: req.body.title,
+	category: req.body.category,
+	body: req.body.body
+  };
+  // Update Article
+  Article.updateArticle(id, data, function(err, article){
+	if(err){
+		console.log(err);
+	}
+	res.location('/articles');
+	res.redirect('/articles');
+  });
+});
+
+
+/* Remove article by ID. */
+router.get('/:id', function(req, res, next) {
+  var id = req.params.id;
+  
+  Article.removeArticle(id, function(err, article) {
+	if(err){
+		console.log(err);
+	}
+	res.json(article);
+  });
+});
+
 module.exports = router;
